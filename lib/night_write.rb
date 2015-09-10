@@ -1,46 +1,37 @@
+require 'pry'
+require_relative 'braille_map'
+
 class NightWrite
-  attr_accessor :output_file
-
-  def initialize
-
-  end
 
   def self.to_braille(file)
-    # Convert the passed-in file to braille
+    characters = file.chars
 
+    first = ""
+    second = ""
+    third = ""
+
+    characters.each do |char|
+      first << BrailleMap::KEYS.fetch(char)[0]
+      second << BrailleMap::KEYS.fetch(char)[1]
+      third << BrailleMap::KEYS.fetch(char)[2]
+    end
 
     # Return 3 Strings for every 1 string provided
-  end
-
-  def count(file)
-    256
-  end
-
-  def output_message
-    puts "Created #{@output_file} containing #{count} characters"
+    "#{first}\n#{second}\n#{third}"
   end
 
 end
 
 
-# `ruby night_write.rb ../io/message.txt ../io/test_out_2.txt`
-# $?.success?
-
-nightwrite = NightWrite.new
-
 input_file = ARGV[0]
+output_file = ARGV[1]
 
-# Read the input file
 handle = File.read(input_file)
 
-# Convert it to braille
-braille = NightWrite.to_braille(handle)
+# TODO Verify the handle.chars.count <= 40
 
-# Export it to the output file
-output_file = ARGV[1]
+braille = NightWrite.to_braille(handle.downcase.strip)
+
 File.write(output_file, braille)
 
-# Print the summary
-
-nightwrite.output_message
-puts "Created #{output_file} containing #{nightwrite.count(handle)} characters"
+puts "Created #{output_file} containing #{handle.strip.chars.count} characters"

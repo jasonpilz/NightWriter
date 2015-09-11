@@ -24,10 +24,14 @@ class NightRead
   end
 
   def to_text(file)
-    file[0].each_slice(2) { |ltr| @first << ltr }
-    file[1].each_slice(2) { |ltr| @second << ltr }
-    file[2].each_slice(2) { |ltr| @third << ltr }
-    transpose
+    if file != []
+      file[0].each_slice(2) { |ltr| @first << ltr }
+      file[1].each_slice(2) { |ltr| @second << ltr }
+      file[2].each_slice(2) { |ltr| @third << ltr }
+      transpose
+    else
+      raise "Error - Converting empty file"
+    end
   end
 
   def transpose
@@ -37,15 +41,19 @@ class NightRead
     all_lines = [line_1, line_2, line_3]
     transposed = all_lines.transpose
     string = ""
-    transposed.each { |ary| string << BrailleMap::KEYS.key(ary) }
+    transposed.each do |ary|
+      raise KeyError if BrailleMap::KEYS.key(ary) == nil
+      string << BrailleMap::KEYS.key(ary)
+    end
+    string
     write_file(string)
   end
 
   def write_file(string)
     if @output_file != nil
       File.write(output_file, string)
+      output_message(string)
     end
-    output_message(string)
     string
   end
 

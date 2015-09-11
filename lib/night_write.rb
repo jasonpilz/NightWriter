@@ -38,10 +38,8 @@ class NightWrite
   def create_output(first, second, third)
     output_string = ""
     first.count.times do |idx|
-      output_string << first[idx]
-      output_string << "\n"
-      output_string << second[idx]
-      output_string << "\n"
+      output_string << first[idx] + "\n"
+      output_string << second[idx] + "\n"
       output_string << third[idx]
       output_string << "\n" if first.count > (idx + 1)
     end

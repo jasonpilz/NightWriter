@@ -1,7 +1,6 @@
 require_relative '../lib/night_write.rb'
 
 class NightWriteTest < Minitest::Test
-
   def test_raise_error_if_character_not_supported
     assert_raises(KeyError) {NightWrite.new.to_braille("&")}
   end
@@ -19,13 +18,20 @@ class NightWriteTest < Minitest::Test
   end
 
   def test_can_output_all_lowercase_letter
-    assert_equal "0.0.00000.00000..0.00.0.00000.00000..0.00.0..000000.\n..0....0.00.00000.00..0....0.00.00000.00..0.00...0.0\n....................0.0.0.0.0.0.0.0.0.0.0000.0000000",
-    NightWrite.new.to_braille("abcdefghijklmnopqrstuvwxyz")
+    assert_equal "0.0.00000.00000..0.00.0.00000.00000..0.00.0..000000.\n" +
+                 "..0....0.00.00000.00..0....0.00.00000.00..0.00...0.0\n" +
+                 "....................0.0.0.0.0.0.0.0.0.0.0000.0000000",
+                 NightWrite.new.to_braille("abcdefghijklmnopqrstuvwxyz")
   end
 
   def test_can_output_all_uppercase_letters
-    assert_equal "..0...0...00..00..0...00..00..0....0...0..0...0...00..00..0...00..00..0....0...0\n......0........0...0..0...00..00..0...00......0........0...0..0...00..00..0...00\n.0...0...0...0...0...0...0...0...0...0...00..00..00..00..00..00..00..00..00..00.\n..0...0....0..00..00..0.\n......0...00.......0...0\n.000.000.0.0.000.000.000",
-    NightWrite.new.to_braille("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+    assert_equal "..0...0...00..00..0...00..00..0....0...0..0...0...00..00..0...00..00..0....0...0\n" +
+                 "......0........0...0..0...00..00..0...00......0........0...0..0...00..00..0...00\n" +
+                 ".0...0...0...0...0...0...0...0...0...0...00..00..00..00..00..00..00..00..00..00.\n" +
+                 "..0...0....0..00..00..0.\n" +
+                 "......0...00.......0...0\n" +
+                 ".000.000.0.0.000.000.000",
+                 NightWrite.new.to_braille("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
   end
 
   def test_can_output_a_uppercase_letter_to_braille

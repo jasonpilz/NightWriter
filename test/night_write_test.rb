@@ -18,7 +18,7 @@ class NightWriteTest < Minitest::Test
     assert_equal "000.00\n.0.000\n..0...", NightWrite.new.to_braille("dog")
   end
 
-  def test_can_output_all_lowercase_letter
+  def test_can_output_all_lowercase_letters
     assert_equal "0.0.00000.00000..0.00.0.00000.00000..0.00.0..000000.\n..0....0.00.00000.00..0....0.00.00000.00..0.00...0.0\n....................0.0.0.0.0.0.0.0.0.0.0000.0000000",
     NightWrite.new.to_braille("abcdefghijklmnopqrstuvwxyz")
   end
